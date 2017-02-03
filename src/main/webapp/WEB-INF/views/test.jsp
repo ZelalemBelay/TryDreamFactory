@@ -9,7 +9,7 @@
 <body>
 <h1>Data: ${data}</h1>
 <center style="margin-top: 150px">
-	<form enctype='application/json' action="test" method="post">
+	<form enctype='application/json' action="testEntity" method="post">
 	<table>
 		<tr>
 			<td>Name: </td>
@@ -20,10 +20,10 @@
 	</form>
 	<br><p>Data</p>
 	<table>
-	<c:forEach var="test" items="${tests}">
+	<c:forEach var="testEntity" items="${testEntities}">
 		<tr>
-			<td>${test.id}</td>
-			<td>${test.name}</td>
+			<td>${testEntity.id}</td>
+			<td>${testEntity.name}</td>
 		</tr>
 	</c:forEach>
 	</table>
