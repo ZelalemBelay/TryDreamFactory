@@ -1,7 +1,5 @@
 package cont;
 
-import com.mysql.cj.x.json.JsonArray;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import entity.Test;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.DeserializationConfig;
@@ -12,10 +10,8 @@ import org.json.JSONObject;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -29,7 +25,7 @@ import java.util.List;
 @Controller
 public class HomeController
 {
-    @RequestMapping("/test")
+    @RequestMapping(value={"/", "/test"})
     public String testGet(Model model)
     {
         model.addAttribute("data", "Data");

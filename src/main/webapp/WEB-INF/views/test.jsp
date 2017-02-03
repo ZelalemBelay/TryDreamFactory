@@ -9,7 +9,7 @@
 <body>
 <h1>Data: ${data}</h1>
 <center style="margin-top: 150px">
-	<form action="test" method="post">
+	<form enctype='application/json' action="test" method="post">
 	<table>
 		<tr>
 			<td>Name: </td>
