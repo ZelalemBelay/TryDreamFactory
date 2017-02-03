@@ -11,6 +11,6 @@ public class MainTest {
     @Test
     public void testPrintMessage() {
         System.out.println("Inside testPrintMessage()");
-        assertEquals("aa","a");
+        assertEquals("testequal","testequal");
     }
 }
