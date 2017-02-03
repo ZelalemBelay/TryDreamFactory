@@ -1,5 +1,7 @@
 import entity.TestEntity;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import service.TestService;
 
@@ -11,6 +13,7 @@ import static org.junit.Assert.assertEquals;
 
 public class MainTest {
 
+    @Mock
     @Autowired
     TestService testService;
 
@@ -18,6 +21,12 @@ public class MainTest {
     public void testPrintMessage() {
         System.out.println("Inside testPrintMessage()");
         assertEquals("testequal","testequal");
+    }
+
+    @Before
+    public void setup()
+    {
+        testService = new TestService();
     }
 
     @Test
