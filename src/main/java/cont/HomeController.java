@@ -26,13 +26,11 @@ public class HomeController
     }
 
 
-
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     public String sendPost(Model model)
     {
         model.addAttribute("data", "data");
         model.addAttribute("testEntities",  testService.getTests());
-
         return "test";
     }
 

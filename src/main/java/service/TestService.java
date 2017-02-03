@@ -76,6 +76,7 @@ public class TestService {
 
     public String insertTest(TestEntity testEntity)
     {
-        return testEntity.getName();
+        String d = testEntity.getName();
+        return d;
     }
 }
