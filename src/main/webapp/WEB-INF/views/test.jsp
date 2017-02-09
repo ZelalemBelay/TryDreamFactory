@@ -9,7 +9,7 @@
 <body>
 <h1>Data: ${data}</h1>
 <center style="margin-top: 150px">
-	<form enctype='application/json' action="testEntity" method="post">
+	<form enctype='application/json' action="test" method="post">
 	<table>
 		<tr>
 			<td>Name: </td>
@@ -24,6 +24,8 @@
 		<tr>
 			<td>${testEntity.id}</td>
 			<td>${testEntity.name}</td>
+			<td><a href="${pageContext.request.contextPath}/delete/${testEntity.id}">  < X >  Delete</a></td>
+			<td><a href="${pageContext.request.contextPath}/update/${testEntity.id}">  < ~ >  Update</a></td>
 		</tr>
 	</c:forEach>
 	</table>

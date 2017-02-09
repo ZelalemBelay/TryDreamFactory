@@ -21,6 +21,11 @@ public class TestEntity
         this.name = name;
     }
 
+    public TestEntity(int i, String abc) {
+        id=i;
+        name=abc;
+    }
+
     public int getId() {
         return id;
     }

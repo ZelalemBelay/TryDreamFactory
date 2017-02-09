@@ -32,7 +32,7 @@ public class MainTest {
     @Test
     public void createEquipmentType() throws Exception {
         TestEntity testEntity = new TestEntity("demoEntity");
-        String  testResult = testService.insertTest(testEntity);
+        String  testResult = testService.insertTestEntity(testEntity);
         assertEquals(testEntity.getName(), testResult);
     }
 

@@ -1,5 +1,7 @@
 package service;
 
+import com.mysql.cj.api.x.JsonValue;
+import com.mysql.cj.x.json.JsonArray;
 import entity.TestEntity;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.DeserializationConfig;
@@ -11,32 +13,48 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Zelalem Belay on 2/3/2017.
  */
 
 @Service
-public class TestService {
-    public List<TestEntity> getTests()
+public class TestService
+{
+    String uri = "";
+    HttpHeaders headers;
+    RestTemplate restTemplate;
+    HttpEntity<String> entity;
+
+    public TestService()
     {
-        final String uri = "http://localhost/api/v2/mysql/_table/test";
+        uri = "http://localhost/api/v2/mysql/_table/test";
 
-        RestTemplate restTemplate = new RestTemplate();
-//        String result = restTemplate.getForObject(uri, String.class);
+        restTemplate = new RestTemplate();
 
-        HttpHeaders headers = new HttpHeaders();
+        headers  = new HttpHeaders();
         headers.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("X-DreamFactory-Api-Key","36fda24fe5588fa4285ac6c6c2fdfbdb6b6bc9834699774c9bf777f706d05a88");
         headers.set("Authorization","Basic emVsYWxlbS5iZWxheUBhMi1nLmNvbTp6b2xhZ2V0bmV0");
         headers.set("X-DreamFactory-Session-Token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsInVzZXJfaWQiOjEsImVtYWlsIjoiWmVsYWxlbS5CZWxheUBhMi1nLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2FwaVwvdjJcL3N5c3RlbVwvYWRtaW5cL3Nlc3Npb24iLCJpYXQiOjE0ODU0NzIxODYsImV4cCI6MTQ4NTQ3NTc4NiwibmJmIjoxNDg1NDcyMTg2LCJqdGkiOiJiMmQyZDE3ZThhNDk0NjQ4Mzk5NGE3YWU4OTdlMDA0YSJ9.xNYQ8z1u4Pk34M7XL0nmsIQo_61ssM1ihdbeNf5wWDM");
 
-        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+    }
+
+
+    public List<TestEntity> getTests()
+    {
+
+//        String result = restTemplate.getForObject(uri, String.class);
+
+        entity = new HttpEntity<>("parameters", headers);
 
         ResponseEntity<String> result = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
 
@@ -74,9 +92,59 @@ public class TestService {
         return testEntities;
     }
 
-    public String insertTest(TestEntity testEntity)
+    public String insertTestEntity(TestEntity testEntity)
     {
+        ObjectMapper mapper = new ObjectMapper();
+        String testEntityJson="{}";
+        try {
+            testEntityJson = mapper.writeValueAsString(new TestEntity(getRandomNumberInRange(0, 6000), "ABC"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+            JSONArray ja2 = new JSONArray();
+            ja2.put(testEntityJson);
+
+            JSONObject jo2 = new JSONObject();
+            jo2.put("resource", ja2);
+
+        System.out.println(jo2.toString());
+
+        HttpEntity<String> postEntity =  new HttpEntity<>("{\"resource\":[{\"id\":"+getRandomNumberInRange(48, 400)+",\"name\":\""+testEntity.getName()+"\"}]}", headers);
+
+        ResponseEntity<String> requestEntity2 = restTemplate.postForEntity(uri, postEntity, String.class);
+
+
+        System.out.println(requestEntity2.getBody());
+
         String d = testEntity.getName();
         return d;
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
+
+    public void deleteEntityWithId(int id)
+    {
+        HttpEntity<String> postEntity3 =  new HttpEntity<>("{\"resource\":[{\"id\":"+id+"}]}", headers);
+
+        ResponseEntity<String> requestEntity3 = restTemplate.exchange(uri,HttpMethod.DELETE, postEntity3,String.class);
+        System.out.println(requestEntity3.getBody());
+
+    }
+
+    public void updateEntityWithId(int id)
+    {
+        HttpEntity<String> postEntity4 =  new HttpEntity<>("{\"resource\":[{\"id\":"+id+"}]},\"name\":\"" + "TESTING UPDATE" + "\"}]}", headers);
+
+        ResponseEntity<String> requestEntity4 = restTemplate.exchange(uri,HttpMethod.PUT, postEntity4,String.class);
+        System.out.println(requestEntity4.getBody());
     }
 }
