@@ -3,6 +3,6 @@ sudo: required
 jdk:
   - oraclejdk8
 
-script:
+build:
   - gradle check
   - gradle assemble
