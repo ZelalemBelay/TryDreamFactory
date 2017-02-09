@@ -29,11 +29,11 @@ public class MainTest {
         testService = new TestService();
     }
 
-    @Test
-    public void createEquipmentType() throws Exception {
-        TestEntity testEntity = new TestEntity("demoEntity");
-        String  testResult = testService.insertTestEntity(testEntity);
-        assertEquals(testEntity.getName(), testResult);
-    }
+//    @Test
+//    public void createEquipmentType() throws Exception {
+//        TestEntity testEntity = new TestEntity("demoEntity");
+//        String  testResult = testService.insertTestEntity(testEntity);
+//        assertEquals(testEntity.getName(), testResult);
+//    }
 
 }
