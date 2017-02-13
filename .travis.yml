@@ -6,3 +6,4 @@ jdk:
 build:
   - gradle check
   - gradle assemble
+

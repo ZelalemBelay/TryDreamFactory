@@ -31,7 +31,7 @@ public class MainTest {
 
 //    @Test
 //    public void createEquipmentType() throws Exception {
-//        TestEntity testEntity = new TestEntity("demoEntity");
+//        TestEntity testEntity = ne3002w TestEntity("demoEntity");
 //        String  testResult = testService.insertTestEntity(testEntity);
 //        assertEquals(testEntity.getName(), testResult);
 //    }

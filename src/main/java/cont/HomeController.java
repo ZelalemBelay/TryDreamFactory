@@ -54,10 +54,11 @@ public class HomeController
     }
 
     @RequestMapping(value = "/update/{id}")
-    public String updateTest(@PathVariable("id") int id, Model model)
+    public String updateTest(@PathVariable("id") int id, @RequestParam("newValenc") String newVal, Model model)
     {
+        System.out.println(id+"--"+newVal);
 
-        testService.updateEntityWithId(id);
+        testService.updateEntityWithId(id, newVal);
 
         model.addAttribute("data", "data");
         model.addAttribute("testEntities",  testService.getTests());

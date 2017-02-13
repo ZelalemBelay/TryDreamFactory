@@ -4,6 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script
+			src="https://code.jquery.com/jquery-3.1.1.min.js"
+			integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+			crossorigin="anonymous"></script>
 <title>Test</title>
 </head>
 <body>
@@ -13,7 +17,7 @@
 	<table>
 		<tr>
 			<td>Name: </td>
-			<td><input type="text" name="name" /> </td>
+			<td><input id="name_id" type="text" name="name" /> </td>
 		</tr>
 	</table>
 	<input value="Insert" type="submit"/>
@@ -25,10 +29,21 @@
 			<td>${testEntity.id}</td>
 			<td>${testEntity.name}</td>
 			<td><a href="${pageContext.request.contextPath}/delete/${testEntity.id}">  < X >  Delete</a></td>
-			<td><a href="${pageContext.request.contextPath}/update/${testEntity.id}">  < ~ >  Update</a></td>
+			<td id="tdd${testEntity.id}">
+					<script>
+                        a = document.createElement('Button');
+
+                        a.onclick = function(){
+                            window.location = "${pageContext.request.contextPath}/update/${testEntity.id}?newValenc="+$("#name_id").val();
+                        };
+                        a.innerHTML = " ~ Update";
+                        document.getElementById('tdd${testEntity.id}').appendChild(a);
+					</script>
+			</td>
 		</tr>
 	</c:forEach>
 	</table>
 	</center>
+
 </body>
 </html>

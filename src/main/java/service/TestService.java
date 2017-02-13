@@ -51,6 +51,7 @@ public class TestService
 
     public List<TestEntity> getTests()
     {
+        uri = "http://localhost/api/v2/mysql/_table/test";
 
 //        String result = restTemplate.getForObject(uri, String.class);
 
@@ -137,13 +138,14 @@ public class TestService
 
         ResponseEntity<String> requestEntity3 = restTemplate.exchange(uri,HttpMethod.DELETE, postEntity3,String.class);
         System.out.println(requestEntity3.getBody());
-
     }
 
-    public void updateEntityWithId(int id)
+    public void updateEntityWithId(int id, String newVal)
     {
-        HttpEntity<String> postEntity4 =  new HttpEntity<>("{\"resource\":[{\"id\":"+id+"}]},\"name\":\"" + "TESTING UPDATE" + "\"}]}", headers);
+        HttpEntity<String> postEntity4 =  new HttpEntity<>("{\"resource\":{ \"name\":\"" + newVal + "\"}}", headers);
 
+        uri = "http://localhost/api/v2/mysql/_table/test?ids="+id;
+        System.out.print("---"+uri+"\n");
         ResponseEntity<String> requestEntity4 = restTemplate.exchange(uri,HttpMethod.PUT, postEntity4,String.class);
         System.out.println(requestEntity4.getBody());
     }
